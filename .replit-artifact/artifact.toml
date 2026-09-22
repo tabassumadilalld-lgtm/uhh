@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Mohd Usman Portfolio"
+description = "A playful personal portfolio for Mohd Usman, a Class 9 student from India, built to turn curiosity, certifications, and an Olympiad rank into a warm invitation to explore tech."
+version = "1.0.0"
+id = "artifacts/mohd-usman-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24358
+
+[services.development]
+run = "pnpm --filter @workspace/mohd-usman-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mohd-usman-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mohd-usman-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24358"
+BASE_PATH = "/"
